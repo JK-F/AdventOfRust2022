@@ -1,9 +1,26 @@
 fn main() {
     let lines = include_str!("../input.txt").lines();
 
-    let sum: u32 = lines.map(get_prio).sum();
+    let sum_one: u32 = lines.clone().map(get_prio).sum();
 
-    println!("{}", sum);
+    println!("{}", sum_one);
+
+    let sum_two = lines
+        .collect::<Vec<_>>()
+        .chunks(3)
+        .map(get_badge)
+        .sum::<u32>();
+
+    println!("{}", sum_two);
+}
+
+fn get_badge(chunk: &[&str]) -> u32 {
+    for c in chunk[0].chars() {
+        if chunk[1].contains(c) && chunk[2].contains(c) {
+            return to_prio(c);
+        }
+    }
+    return 0;
 }
 
 fn get_prio(line: &str) -> u32 {
