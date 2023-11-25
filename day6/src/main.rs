@@ -4,15 +4,15 @@ fn main() {
 
     let (index, chars) = stream.windows(size)
                                         .enumerate()
-                                        .find(|(index , chars)| four_unique(chars))
+                                        .find(|(index , chars)| all_unique(chars, size))
                                         .unwrap();
     println!("Solution: {}", index + size); 
 }
 
 
 
-fn four_unique(chars: &[char]) -> bool {
-    let mut vec: Vec<&char> = Vec::with_capacity(4);
+fn all_unique(chars: &[char], size: usize) -> bool {
+    let mut vec: Vec<&char> = Vec::with_capacity(size);
     for c in chars {
         if vec.contains(&c) {
             return false;
